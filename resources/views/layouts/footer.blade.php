@@ -1,40 +1,44 @@
-<footer class="ftco-footer">
+<?php $setting = setting();
+?><footer class="ftco-footer">
     <div class="container">
       <div class="row mb-5 text-left">
         <div class="col-sm-12 col-md-4">
           <div class="ftco-footer-widget mb-4">
             {{-- <h2 class="ftco-heading-2 logo"><a href="#">Counselor</a></h2> --}}
             <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('assets/logo/whiteBG.png')}}" class="logo" alt="Logo"></a>
-            <p>Far far away, behind the word mountains, far from the countries.</p>
+            <p>{{$setting['footer_content']}}</p>
             <ul class="ftco-footer-social list-unstyled mt-2">
               {{-- <li class="ftco-animate"><a href="#"><span class="fab fa-twitter"></span></a></li> --}}
-              <li class="ftco-animate"><a href="https://www.linkedin.com/in/arpi-parikh-5b346096/" target="_blank"><span class="fab fa-linkedin"></span></a></li>
-              <li class="ftco-animate"><a href="https://www.instagram.com/nirvana_counseling/" target="_blank"><span class="fab fa-instagram"></span></a></li>
+              <li class="ftco-animate"><a href="{{$setting['linkedin_link']}}" target="_blank"><span class="fab fa-linkedin"></span></a></li>
+              <li class="ftco-animate"><a href="{{$setting['insta_link']}}" target="_blank"><span class="fab fa-instagram"></span></a></li>
             </ul>
           </div>
         </div>
-        <div class="col-sm-12 col-md-2">
+        <div class="col-sm-12 col-md-4">
           <div class="ftco-footer-widget mb-4 ml-md-4">
             <h2 class="ftco-heading-2">Explore</h2>
             <ul class="list-unstyled">
               <li><a href="{{route('about')}}"><span class="fa fa-chevron-right mr-2"></span>About</a></li>
-              <li><a href="{{route('contact')}}"><span class="fa fa-chevron-right mr-2"></span>Contact</a></li>
+              <li><a href="{{route('contact')}}"><span class="fa fa-chevron-right mr-2"></span>Contact Us</a></li>
+              <li><a href="{{route('blogs')}}"><span class="fa fa-chevron-right mr-2"></span>Blog</a></li>
+              <li><a href="{{route('counselor')}}"><span class="fa fa-chevron-right mr-2"></span>Counselor</a></li>
+              <li><a href="{{route('privacy')}}"><span class="fa fa-chevron-right mr-2"></span>Privacy &amp; Policy</a></li>
               {{-- <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>What We Do</a></li> --}}
               {{-- <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Plans &amp; Pricing</a></li> --}}
             </ul>
           </div>
         </div>
-        <div class="col-sm-12 col-md-2">
+        {{-- <div class="col-sm-12 col-md-3">
           <div class="ftco-footer-widget mb-4 ml-md-4">
             <h2 class="ftco-heading-2">Legal</h2>
             <ul class="list-unstyled">
               <li><a href="{{route('contact')}}"><span class="fa fa-chevron-right mr-2"></span>Join us</a></li>
               <li><a href="{{route('blog')}}"><span class="fa fa-chevron-right mr-2"></span>Blog</a></li>
-              {{-- <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Privacy &amp; Policy</a></li> --}}
-              {{-- <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Term &amp; Conditions</a></li> --}}
+              
+              <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Term &amp; Conditions</a></li>
             </ul>
           </div>
-        </div>
+        </div> --}}
         {{-- <div class="col-sm-12 col-md-2">
            <div class="ftco-footer-widget mb-4">
             <h2 class="ftco-heading-2">Company</h2>
@@ -51,9 +55,9 @@
               <h2 class="ftco-heading-2">Have a Questions?</h2>
               <div class="block-23 mb-3">
                 <ul>
-                  <li><span class="icon fa fa-map marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                  <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+5875809055</span></a></li>
-                  <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">gofornirvana@gmail.com</span></a></li>
+                  {{-- <li><span class="icon fa fa-map marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li> --}}
+                  <li><a href="tel://15875809055"><span class="icon fa fa-phone"></span><span class="text">+1 5875809055</span></a></li>
+                  <li><a href="{{ URL::to('mailto:gofornirvana@gmail.com') }}"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">gofornirvana@gmail.com</span></a></li>
                 </ul>
               </div>
           </div>
@@ -97,6 +101,7 @@
 <script src="{{asset('assets/https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false')}}"></script>
 <script src="{{asset('assets/js/google-map.js')}}"></script>
 <script src="{{asset('assets/js/main.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
   function toggleContent() {
@@ -111,4 +116,15 @@
           readMoreLink.textContent = "Read more";
       }
   }
+
+  // Fancybox Configuration
+  $( window ).resize(function() {
+	onWindowResize();
+});
+
+onWindowResize();
+
+function onWindowResize() {
+	$('.screen-width-value').text($(window).width());	
+}
 </script>

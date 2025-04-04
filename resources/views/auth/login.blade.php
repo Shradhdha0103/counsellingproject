@@ -51,7 +51,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Javaid Bashir :: Web developer</title>
+<title>Nirvana Admin | Login</title>
+<link rel="shortcut icon" href="{{asset('assets/logo/nirvana_logo.png')}}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -157,7 +158,7 @@
         </div>
         <div class="form-group small clearfix">
             <label class="checkbox-inline"><input id="remember_me" type="checkbox" name="remember"> Remember me</label>
-            <a href="{{ route('password.request') }}" class="forgot-link">Forgot Password?</a>
+            <a href="" class="forgot-link">Forgot Password?</a>
         </div> 
         <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">              
     </form>			

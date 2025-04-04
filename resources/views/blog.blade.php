@@ -1,11 +1,12 @@
 @extends('layouts.main')
+
 @section('content')
 <section class="hero-wrap hero-wrap-2" style="background-image: url('{{asset('assets/images/bg_5.jpg')}}');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
       <div class="row no-gutters slider-text align-items-end justify-content-center">
         <div class="col-md-9 ftco-animate mb-5 text-center">
-            <p class="breadcrumbs mb-0"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Blog <i class="fa fa-chevron-right"></i></span></p>
+            <p class="breadcrumbs mb-0"><span class="mr-2"><a href="{{route('home')}}">Home <i class="fa fa-chevron-right"></i></a></span> <span>Blog <i class="fa fa-chevron-right"></i></span></p>
           <h1 class="mb-0 bread">Our Blog</h1>
         </div>
       </div>
@@ -13,6 +14,34 @@
   </section>
 
       <section class="ftco-section">
+    <div class="container">
+      <div class="row d-flex">
+        @forelse ($blog as $item)
+        <div class="col-md-4 d-flex ftco-animate">
+            <div class="blog-entry justify-content-end">
+            <div class="text text-center">
+                <a href="{{route('blogdetails',['slug'=>$item->slug])}}" class="block-20 img" style="background-image: url('{{asset('storage/app/private/public/blogs')}}/{{$item->feature_img}}');">
+                </a>
+                <div class="meta text-center mb-2 d-flex align-items-center justify-content-center">
+                  <div>
+                      <span class="day">{{ now()->format('d') }}</span>
+                      <span class="mos">{{ now()->format('m') }}</span>
+                      <span class="yr">{{ now()->format('Y') }}</span>
+                  </div>
+              </div>
+              <h3 class="heading mb-3"><a href="#">{{$item->title}}</a></h3>
+              <p>{{$item->sub_title}}</p>
+            </div>
+          </div>
+        </div>
+        @empty
+        <div class="no-posts">No Blogs</div>
+        @endforelse
+    </div>
+    
+  </section>
+
+  {{-- <section class="ftco-section">
     <div class="container">
       <div class="row d-flex">
         <div class="col-md-4 d-flex ftco-animate">
@@ -187,5 +216,5 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> --}}
 @stop

@@ -1,13 +1,6 @@
 @extends('layouts.main')
 @section('content')
-<style>
 
-ul {
-  list-style-type: disc;
-  margin-left: 20px;
-  font-size: 1.1rem;
-}
-</style>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('{{asset('assets/images/bg_5.jpg')}}');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -33,11 +26,20 @@ ul {
             <p>Our approach is not a one-size-fits-all method. We draw from evidence-based therapies, including Cognitive Behavioral Therapy (CBT), Dialectical Behavior Therapy (DBT), Acceptance and Commitment Therapy (ACT), and Emotionally Focused Therapy (EFT)—tailored to meet your unique needs and goals. Each therapy is thoughtfully designed to help you understand yourself better, manage your emotions, and overcome the hurdles that have been holding you back.</p>
       
             <h2 class="service_title">Specializations</h2>
-            <ul>
-              <li>ADHD</li>
-              <li>Trauma</li>
-              <li>Relationship Issues</li>
-              <li>Personal Development</li>
+            <p>we are experienced in helping individuals with a wide range of concerns, including:</p>
+            <ul class="specializations">
+              <li>Behavioural and/or Substance Addictions</li> 
+              <li>Attention-Deficit Hyperactivity Disorder (ADHD)</li>
+              <li>Relationship counseling</li>
+              <li>Personality Disorder</li>
+              <li>Obsessive Compulsive Disorder (OCD)</li> 
+              <li>Post-Partum Depression / Anxiety</li>
+              <li>PTSD</li>
+              <li>Depressive Disorder</li>
+              <li>Anxiety Disorder</li>
+              <li>Stress Management</li>
+              <li>Therapy for Teens and Children</li>
+              
             </ul>
             <p>We empower you to turn your challenges into stepping stones for transformation.</p>
 

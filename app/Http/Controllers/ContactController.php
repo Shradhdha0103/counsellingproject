@@ -41,8 +41,11 @@ class ContactController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,  // Assuming you're collecting the phone number
-                'message' => $request->message, // Assuming you're capturing the message as well
+                'message' => $request->message,
+                'role' => 2 // Assuming you're capturing the message as well
             ]);
+
+            $contact->save();
 
             // Return a response (success message, redirect, etc.)
             return redirect()->back()->with('success', 'Thank you !');
