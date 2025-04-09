@@ -11568,6 +11568,7 @@ h5,
   z-index: 0;
   width: 100%;
   background: #5cb65c;
+
 }
 
 .wrap .phone {
@@ -12367,7 +12368,7 @@ h5,
 }
 
 .services-2:hover .icon-wrap .number {
-  background: #fff;
+  background: #fff !important;
   -webkit-box-shadow: 0px 4px 15px -6px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 4px 15px -6px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 4px 15px -6px rgba(0, 0, 0, 0.15);
@@ -12385,7 +12386,7 @@ h5,
 }
 
 .services-2:hover .icon:after {
-  background: #fff;
+  background: #fff !important;
   right: 50px;
 }
 

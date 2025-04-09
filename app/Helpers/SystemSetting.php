@@ -6,6 +6,12 @@ use App\Models\serviceMaster;
 use App\Models\blogs;
 use App\Models\cms;
 
+function metaData($pagename)
+{
+    $pagename = seo_tbl::where('page_name', $pagename)->first();
+    return $pagename;
+}
+
 function setting()
 {
     $setting = setting::orderBy('id', 'desc')->first();

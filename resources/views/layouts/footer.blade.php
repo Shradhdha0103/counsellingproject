@@ -1,11 +1,14 @@
 <?php $setting = setting();
+$menuItems = menuItems();
 ?><footer class="ftco-footer">
     <div class="container">
       <div class="row mb-5 text-left">
         <div class="col-sm-12 col-md-4">
           <div class="ftco-footer-widget mb-4">
             {{-- <h2 class="ftco-heading-2 logo"><a href="#">Counselor</a></h2> --}}
-            <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('assets/logo/whiteBG.png')}}" class="logo" alt="Logo"></a>
+            
+            <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('storage/app/private/public/footer_logo')}}/{{$setting->footer_logo}}" class="logo" alt="Logo"></a>
+            {{-- <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('assets/logo/whiteBG.png')}}" class="logo" alt="Logo"></a> --}}
             <p>{{$setting['footer_content']}}</p>
             <ul class="ftco-footer-social list-unstyled mt-2">
               {{-- <li class="ftco-animate"><a href="#"><span class="fab fa-twitter"></span></a></li> --}}
@@ -18,10 +21,14 @@
           <div class="ftco-footer-widget mb-4 ml-md-4">
             <h2 class="ftco-heading-2">Explore</h2>
             <ul class="list-unstyled">
-              <li><a href="{{route('about')}}"><span class="fa fa-chevron-right mr-2"></span>About</a></li>
-              <li><a href="{{route('contact')}}"><span class="fa fa-chevron-right mr-2"></span>Contact Us</a></li>
-              <li><a href="{{route('blogs')}}"><span class="fa fa-chevron-right mr-2"></span>Blog</a></li>
-              <li><a href="{{route('counselor')}}"><span class="fa fa-chevron-right mr-2"></span>Counselor</a></li>
+              @foreach($menuItems as $item)
+              <li>
+                <a href="{{ route('displaymenu', ['slug' => $item->slug]) }}">
+                  <span class="fa fa-chevron-right mr-2"></span> {{ $item->title }}
+               </a>
+              </li>
+          @endforeach
+              {{-- <li><a href="{{route('counselor')}}"><span class="fa fa-chevron-right mr-2"></span>Counselor</a></li> --}}
               <li><a href="{{route('privacy')}}"><span class="fa fa-chevron-right mr-2"></span>Privacy &amp; Policy</a></li>
               {{-- <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>What We Do</a></li> --}}
               {{-- <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Plans &amp; Pricing</a></li> --}}

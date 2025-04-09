@@ -1,16 +1,21 @@
+@php
+  $metaData = seoPage($pagename);      
+  $color = setting();
+@endphp
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="Nirvana Counseling | Therapy Services for Individuals, Couples, and Families">
-    <meta name="description" content="Nirvana Counseling provides professional counseling services for individuals, couples, and families to help them navigate life's challenges.">
-    <meta name="keywords" content="therapy, counseling, mental health, individual therapy, couples counseling, teenagers therapy, ADHD support, trauma therapy">
-    <meta property="og:title" content="Nirvana Counseling | Therapy Services">
-    <meta property="og:description" content="Explore personalized therapy services at Nirvana Counseling. We offer individual, couples, and family counseling to support your mental health journey.">
+    <meta name="title" content="{{@$metaData['title']}}">
+    <meta name="description" content="{{@$metaData['description']}}">
+    <meta name="keywords" content="{{@$metaData['key_word']}}">
+    <meta property="og:title" content="{{@$metaData['title']}}">
+    <meta property="og:description" content="{{@$metaData['description']}}">
     <meta property="og:image" content="URL to your image">
     <meta property="og:url" content="https://nirvanacounseling.ca/">
-    <title>Nirvana Counseling | Therapy Services for Individuals, Couples, and Families</title>
+    {{-- <title>Nirvana Counseling | Therapy Services for Individuals, Couples, and Families</title> --}}
+    <title>{{@$metaData['title']}}</title>
     <link rel="shortcut icon" href="{{asset('assets/logo/nirvana_logo.png')}}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
 
@@ -29,6 +34,58 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   </head>
+  <?php 
+  $color = e(setting()->color);  // Use e() to escape the color value
+  $font = e(setting()->fonts);   // Use e() to escape the font value
+  ?>
+<style>
+    .hero-overly, .hero-wrap.hero-wrap-2 .overlay {
+    background: linear-gradient(45deg, <?=$color?> 0%, rgba(88, 145, 103, 0) 100%)!important;
+    }
+    .wrap, .ftco-appointment .overlay {
+    background-color: <?=$color?>;
+    }
+    .navbar-nav .nav-link.active, #ftco-nav .active, .ftco-navbar-light .navbar-nav>.nav-item>.nav-link:hover, .contactForm .label, .dbox p a, .heading-section .subheading, .blog-entry .meta span.day, .services-2:hover .icon-wrap .number span, .service_title, blockquote{
+        color: <?=$color?> !important;
+    }
+    .btn.btn-primary, .tabulation .nav-pills .nav-item .nav-link.active{
+        background-color : <?=$color?> !important;
+        border-color: <?=$color?> !important;
+    }
+    .ftco-footer-social li a, .blog-entry:hover .meta, .services-2:hover .icon, .services-2 .icon-wrap .number, .dbox .icon{
+        background:  <?=$color?> !important;
+    }
+    .btn-primary{
+        background-color : <?=$color?> !important;
+        background-image: linear-gradient(to bottom, ${color} 0%, #429342 100%) !important;
+    }
+    .blog-entry:hover .meta .day {
+         color: #fff !important;
+         /* background:  <?=$color?> !important; */
+    }
+    .services-2 .icon:after{
+        background:  <?=$color?> !important;
+    }
+    .ftco-intro .intro.aside-stretch{
+        background:  <?=$color?> !important;
+        filter: brightness(1.2); 
+    }
+    .ftco-intro .intro.aside-stretch:after{
+        background:  <?=$color?> !important;
+        /* filter: brightness(1.2);  */
+    }
+    .intro.color-1{
+        background:  <?=$color?> !important;
+    }
+    .intro.color-2
+    {
+        background:  <?=$color?> !important;
+        filter: brightness(0.8);
+    }
+    html, body, samp, input, button, select, optgroup, textarea, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 , .tooltip, .popover, .text-monospace, body {
+        font-family: "<?=$font?>" !important;
+    }
+</style>
   <body>
     <div id="right-panel" class="right-panel">
         <div class="wrap">

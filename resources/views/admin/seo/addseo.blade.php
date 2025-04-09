@@ -10,8 +10,8 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header d-flex">
-            <a href="{{route('cms')}}" class="pr-3"><img src="{{asset('assets/images/backArrow.svg')}}"></a>
-            <h4>Add CMS</h4>
+            <a href="{{route('seo_details')}}" class="pr-3"><img src="{{asset('assets/images/backArrow.svg')}}"></a>
+            <h4>Add SEO</h4>
         </div>
         <div class="card-body">
             <div class="custom-tab">
@@ -23,48 +23,33 @@
                             {{-- <div class="card-header"><strong>Update Home Page</strong><small> Information</small></div> --}}
                             <div class="card-body card-block">     
                                 
-                                <form action="{{route('addcms')}}" method="POST" enctype="multipart/form-data">
+                                <form action="{{route('add_seo')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     
                                 <div class="col-md-6">
-                                    <div class="col-md-12 form-group"><label for="title" class=" form-control-label">Title</label>
+                                    <div class="col-md-12 form-group"><label for="page_name" class=" form-control-label">Page Name</label>
+                                        <input type="text" id="page_name" name="page_name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-12 form-group"><label for="title" class=" form-control-label">Meta Title</label>
                                         <input type="text" id="title" name="title" class="form-control">
                                     </div>
                                 </div>
-                            
-                                <div class="col-md-6">
-                                    <div class="col-md-12 form-group"><label for="slug" class=" form-control-label">Slug</label>
-                                        <input type="text" id="slug" name="slug" class="form-control">
+                                <div class="col-md-12">
+                                    <div class="col-md-12 form-group"><label for="description" class="form-control-label">Meta Description</label>
+                                        <textarea id="content" name="description"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="col-md-12 form-group"><label for="desc" class="form-control-label">Description</label>
-                                        {{-- <input type="text" id="desc" name="desc" class="form-control"> --}}
-                                        <textarea id="content" name="desc"></textarea>
-                                    </div>
-                                </div>
-                             
-                                <div class="col-md-6 form-group">
-                                    <div class="col-md-12 form-group">
-                                    <label for="status" class="form-control-label">Status</label>
-                                    <select id="mySelectstatus" class="col-md-12 form-control" name="status" data-placeholder="--Select Status--">
-                                        <option value="1">Active</option>
-                                        <option value="0">Deactive</option>
-                                    </select>
-                                    </div>
-                                    {{-- <input type="text" class="form-control" id="status" name="status"> --}}
-                                    {{-- <label class="error text-danger">{{$errors->first('SEO_title')}}</label> --}}
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="col-md-12 form-group"><label for="banner_image" class="form-control-label">Bnner Image</label>
-                                        <input type="file" id="banner_image" name="banner_image" class="form-control">
+                                    <div class="col-md-12 form-group"><label for="key_word" class=" form-control-label">Meta Keyword</label>
+                                        {{-- <input type="text" id="key_word" name="key_word" class="form-control"> --}}
+                                        <textarea id="content_key_word" name="key_word"></textarea>
                                     </div>
                                 </div> 
-
                                 
-                                <button type="submit" class="btn btn-lg btn-info btn-block">Save</button>
+                                <button type="submit" class="btn btn-lg btn-info btn-block">Update</button>
                                 </form>
                             </div>
                         {{-- </div> --}}
@@ -101,7 +86,21 @@
             ]
         });
     });
+
     $(document).ready(function() {
-            $('#mySelectstatus').select2();
-    })
+    $('#content_key_word').summernote({
+            placeholder: 'Enter your content here...', // Placeholder text
+            tabsize: 2, // Number of spaces when tab is pressed
+            height: 200, // Set the editor height
+            toolbar: [
+                // Customize toolbar options (buttons)
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen', 'codeview']]
+            ]
+        });
+   
+    });
 </script>

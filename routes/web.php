@@ -47,9 +47,10 @@ Route::get('multilingual_clients', function () {
 Route::get('pricing', function () {
     return view('pricing');
 })->name('pricing');
-Route::get('privacy', function () {
-    return view('privacy');
-})->name('privacy');
+Route::get('/privacy', [HomeController::class, 'privacy'])->name('privacy');
+// Route::get('privacy', function () {
+//     return view('privacy');
+// })->name('privacy');
 // Route::get('cms/{slug}', [HomeController::class, 'menushow'])->name('cms.show');
 
 
@@ -61,9 +62,10 @@ Route::get('/displaymenu/{slug}', [HomeController::class, 'displaymenu'])->name(
 Route::get('/blogs', [HomeController::class, 'displayblogs'])->name('blogs');
 Route::get('/blogs/{slug}', [HomeController::class, 'blogDetails'])->name('blogdetails');
 Route::get('/services/{slug}', [HomeController::class, 'services'])->name('servicedetails');
-Route::get('contact', function () {
-    return view('contact');
-})->name('contact');
+
+// Route::get('contact', function () {
+//     return view('contact');
+// })->name('contact');
 
 Route::get('schedule-a-consultation', function () {
     return view('schedule-a-consultation');
@@ -115,8 +117,10 @@ Route::middleware('auth')->group(function () {
 
     // SEO
     Route::get('/seo_details', [HomeController::class, 'seo_details'])->name('seo_details');
-    Route::post('/add-seo', [HomeController::class, 'addSEO'])->name('add-seo');
+    Route::get('/add-seo', [HomeController::class, 'storeseo'])->name('add-seo');
+    Route::post('/add-seo', [HomeController::class, 'addSEO'])->name('add_seo');
     Route::get('/edit-seo/{id}', [HomeController::class, 'editSEO'])->name('edit-seo');
+    Route::post('/edit-seo-data', [HomeController::class, 'editSEOData'])->name('edit-seo-data');
     Route::delete('/delete-seo/{id}', [HomeController::class, 'deleteSEO'])->name('delete-seo');
 });
 
@@ -125,6 +129,7 @@ Route::get('/consult', [ConsultationController::class, 'showConsultationForm'])-
 Route::post('/book-consultation', [ConsultationController::class, 'bookConsultation'])->name('book.consultation');
 require __DIR__ . '/auth.php';
 
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contacts.store');
 Route::post('/send-email', [ContactController::class, 'send'])->name('send-email');
 

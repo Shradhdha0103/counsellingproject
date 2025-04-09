@@ -91,7 +91,7 @@
                     </a>
 
                     <div class="user-menu dropdown-menu">
-                        <a class="dropdown-item" href="#"><i class="ti-user"></i> My Profile</a>
+                        {{-- <a class="dropdown-item" href="{{route('profile')}}"><i class="ti-user"></i> My Profile</a> --}}
                         {{-- <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a> --}}
                         <div class="dropdown-options">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mb-0">

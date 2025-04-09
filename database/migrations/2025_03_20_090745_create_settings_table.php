@@ -31,10 +31,15 @@ return new class extends Migration
             $table->string('therapy_title')->nullable();
             $table->string('therapy_heading')->nullable();
             $table->text('therapy_content')->nullable();
+            $table->string('contact_title')->nullable();
+            $table->text('contact_banner_img')->nullable();
+            $table->text('blog_banner_image')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->text('footer_content')->nullable();
             $table->text('logo')->nullable();
+            $table->text('footer_logo')->nullable();
+            $table->text('contact_background_img')->nullable();
             $table->text('insta_link')->nullable();
             $table->text('linkedin_link')->nullable();
             $table->text('website_link')->nullable();

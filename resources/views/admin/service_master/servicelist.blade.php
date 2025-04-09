@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <strong>All Services</strong>
-                        <strong><a class="text-end text-green" href="{{ route('add_service') }}">Add Service</a></strong>
+                        <strong><a class="text-end text-green btn btn-primary" href="{{ route('add_service') }}">Add Service</a></strong>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">

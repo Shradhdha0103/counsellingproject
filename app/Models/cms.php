@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class cms extends Model
 {
     use HasFactory;
-    public $table = "cms";
+    // public $table = "cms";
+    protected $fillable = ['id', 'title', 'slug', 'desc', 'banner_image', 'status', 'created_at', 'updated_at'];
 }

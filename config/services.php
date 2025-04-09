@@ -13,7 +13,10 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-
+    'mailgun' => [
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),  // This line should correctly reference the MAILGUN_SECRET key in the .env file
+    ],
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

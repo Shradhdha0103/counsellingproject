@@ -9,7 +9,8 @@
 </style>
 <div class="col-lg-12">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex">
+            <a href="{{route('cms')}}" class="pr-3"><img src="{{asset('assets/images/backArrow.svg')}}"></a>
             <h4>Update CMS</h4>
         </div>
         <div class="card-body">
@@ -25,13 +26,13 @@
                                 <form action="{{route('edit-cms-data')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$updateCMS->id}}">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="title" class=" form-control-label">Title</label>
                                         <input type="text" id="title" name="title" class="form-control" value="{{ $updateCMS->title }}">
                                     </div>
                                 </div>
                              
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="slug" class=" form-control-label">Slug</label>
                                         <input type="text" id="slug" name="slug" class="form-control"  value="{{ $updateCMS->slug }}">
                                     </div>
@@ -53,6 +54,16 @@
                                     </select>
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-12 form-group"><label for="banner_image" class="form-control-label">Bnner Image</label>
+                                        <input type="hidden" name="banner_image_show" value="{{ old('banner_image', $updateCMS->banner_image) }}">
+                                        <input type="file" id="banner_image" name="banner_image" class="form-control">
+                                        <img id="image-preview" src="{{ old('banner_image', $updateCMS->banner_image ? asset('storage/app/private/public/CMS_image/' . $updateCMS->banner_image) : '') }}" 
+                                        alt="Image Preview" 
+                                        style="width: 100px; height: 100px;">
+                                    </div>
+                                </div> 
                                 
                                 <button type="submit" class="btn btn-lg btn-info btn-block">Update</button>
                                 </form>

@@ -9,7 +9,8 @@
 </style>
 <div class="col-lg-12">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex">
+            <a href="{{route('service_list')}}" class="pr-3"><img src="{{asset('assets/images/backArrow.svg')}}"></a>
             <h4>Add Service</h4>
         </div>
         <div class="card-body">

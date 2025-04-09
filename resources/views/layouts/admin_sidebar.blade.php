@@ -74,7 +74,7 @@
                     </ul>
                 </li>
 
-                <li class="{{request()->is('seo_details') || request()->is('addblog') || request()->is('edit-blog/*')? 'active' : '' }}">
+                <li class="{{request()->is('seo_details') || request()->is('add-seo') || request()->is('edit-seo/*')? 'active' : '' }}">
                     <a href="{{route('seo_details')}}"> <i class="menu-icon fa fa-search"></i>SEO Page Detail</a>
                     {{-- <ul class="sub-menu children dropdown-menu">
                         <li class="{{ request()->is('bloglist') ? 'active' : '' }}"><i class="menu-icon ti-layout-grid2"></i><a href="{{route('bloglist')}}">Blog List</a></li>

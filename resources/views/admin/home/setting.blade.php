@@ -1,4 +1,5 @@
 @extends('layouts.admin_main')
+@section('pagename',$pagename)
 @section('content')
 
 {{-- <div class="breadcrumbs">
@@ -36,7 +37,8 @@
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="custom-nav-home-tab" data-toggle="tab" href="#custom-nav-home" role="tab" aria-controls="custom-nav-home" aria-selected="true">Home</a>
                         <a class="nav-item nav-link" id="custom-nav-profile-tab" data-toggle="tab" href="#custom-nav-profile" role="tab" aria-controls="custom-nav-profile" aria-selected="false">Service</a>
-                        <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Footer</a>
+                        <a class="nav-item nav-link" id="custom-nav-contact-tab" data-toggle="tab" href="#custom-nav-contact" role="tab" aria-controls="custom-nav-contact" aria-selected="false">Contact Us</a>
+                        <a class="nav-item nav-link" id="custom-nav-footer-tab" data-toggle="tab" href="#custom-nav-footer" role="tab" aria-controls="custom-nav-footer" aria-selected="false">Setting</a>
                     </div>
                 </nav>
                 <div class="tab-content pl-3 pt-2" id="nav-tabContent">
@@ -96,14 +98,40 @@
                                         <input type="text" id="banner_content3" name="banner_content3" value="{{ old('banner_content3', $setting->banner_content3) }}" class="form-control">
                                     </div>
                         
-                                    <div class="col-md-6">  
+                                    <div class="col-md-3">  
                                         <div class="form-group"><label for="banner_img" class=" form-control-label">Banner Image</label>
-                                            <input type="file" id="banner_img" name="banner_img" class="form-control-file">
+                                            <input type="hidden" name="banner_img_show" value="{{ old('banner_img', $setting->banner_img) }}">
+                                            <input type="file" id="banner_img" name="banner_img" class="form-control-file" value="{{ old('banner_img', $setting->banner_img) }}">
+                                            <img id="image-preview" src="{{ old('banner_img', $setting->banner_img ? asset('storage/app/private/public/banner_img/' . $setting->banner_img) : '') }}" 
+                                            alt="Image Preview" 
+                                            style="width: 100px; height: 100px;">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group"><label for="logo" class=" form-control-label">LOGO</label>
-                                            <input type="file" id="logo" name="logo" class="form-control-file">
+                                            <input type="hidden" name="logo_show" value="{{ old('logo', $setting->logo) }}">
+                                            <input type="file" id="logo" name="logo" class="form-control-file" value="{{ old('logo', $setting->logo) }}">
+                                            <img id="image-preview" src="{{ old('logo', $setting->logo ? asset('storage/app/private/public/logo/' . $setting->logo) : '') }}" 
+                                            alt="Image Preview" 
+                                            style="width: 100px; height: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"><label for="footer_logo" class=" form-control-label">Footer LOGO</label>
+                                            <input type="hidden" name="footer_logo_show" value="{{ old('footer_logo', $setting->footer_logo) }}">
+                                            <input type="file" id="footer_logo" name="footer_logo" class="form-control-file" value="{{ old('footer_logo', $setting->footer_logo) }}">
+                                            <img id="image-preview" src="{{ old('footer_logo', $setting->footer_logo ? asset('storage/app/private/public/footer_logo/' . $setting->footer_logo) : '') }}" 
+                                            alt="Image Preview" 
+                                            style="width: 100px; height: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"><label for="contact_background_img" class=" form-control-label">Background Image for ContactUs</label>
+                                            <input type="hidden" name="contact_background_img_show" value="{{ old('contact_background_img', $setting->contact_background_img) }}">
+                                            <input type="file" id="contact_background_img" name="contact_background_img" class="form-control-file" value="{{ old('contact_background_img', $setting->contact_background_img) }}">
+                                            <img id="image-preview" src="{{ old('contact_background_img', $setting->contact_background_img ? asset('storage/app/private/public/contact_background_img/' . $setting->contact_background_img) : '') }}" 
+                                            alt="Image Preview" 
+                                            style="width: 100px; height: 100px;">
                                         </div>
                                     </div> 
                                     
@@ -177,6 +205,11 @@
                                 {{-- <div class="card-header"><strong>Update Footer</strong><small> Information</small></div> --}}
                                 <div class="card-body card-block">
                                     <div class="col-md-6">  
+                                        <div class="form-group"><label for="contact_title" class=" form-control-label">Contact Title</label>
+                                         <input type="text" id="contact_title" name="contact_title" value="{{ old('contact_title', $setting->contact_title) }}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">  
                                         <div class="form-group"><label for="phone" class=" form-control-label">Phone</label>
                                          <input type="text" id="phone" name="phone" value="{{ old('phone', $setting->phone) }}" class="form-control">
                                         </div>
@@ -187,26 +220,71 @@
                                         </div>
                                     </div>          
                                     
-                                    <div class="col-md-12 form-group"><label for="footer_content" class=" form-control-label">Footer Content</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group"><label for="website_link" class=" form-control-label">Website Link</label>
+                                            <input type="text" id="website_link" name="website_link" value="{{ old('website_link', $setting->website_link) }}" class="form-control">
+                                        </div>
+                                    </div>  
+
+                                    <div class="col-md-3">
+                                        <div class="form-group"><label for="contact_banner_img" class=" form-control-label">Contact Banner Image</label>
+                                            <input type="hidden" name="contact_banner_img_show" value="{{ old('contact_banner_img', $setting->contact_banner_img) }}">
+                                            <input type="file" id="contact_banner_img" name="contact_banner_img" class="form-control-file" value="{{ old('contact_banner_img', $setting->contact_banner_img) }}">
+                                            <img id="image-preview" src="{{ old('contact_banner_img', $setting->contact_banner_img ? asset('storage/app/private/public/contactBanner/' . $setting->contact_banner_img) : '') }}" 
+                                            alt="Image Preview" 
+                                            style="width: 100px; height: 100px;">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-lg btn-info btn-block">Update</button>
+                                </div>
+                            {{-- </div> --}}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="custom-nav-footer" role="tabpanel" aria-labelledby="custom-nav-footer-tab">
+                        <div class="col-lg-12">
+                            {{-- <div class="card"> --}}
+                                {{-- <div class="card-header"><strong>Update Footer</strong><small> Information</small></div> --}}
+                                <div class="card-body card-block">
+
+                                   
+                                    
+                                    <div class="col-md-6 form-group"><label for="footer_content" class=" form-control-label">Footer Content</label>
                                         <input type="text" id="footer_content" name="footer_content" value="{{ old('footer_content', $setting->footer_content) }}" class="form-control">
                                     </div>
                         
-                                    <div class="col-md-4">  
+                                    <div class="col-md-6 form-group">  
                                         <div class="form-group"><label for="insta_link" class=" form-control-label">Insta Link</label>
                                          <input type="text" id="insta_link" name="insta_link" value="{{ old('insta_link', $setting->insta_link) }}" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6 form-group">
                                         <div class="form-group"><label for="linkedin_link" class=" form-control-label">Linkedin Link</label>
                                             <input type="text" id="linkedin_link" name="linkedin_link" value="{{ old('linkedin_link', $setting->linkedin_link) }}" class="form-control">
                                         </div>
                                     </div>    
-                                    <div class="col-md-4">
-                                        <div class="form-group"><label for="website_link" class=" form-control-label">Website Link</label>
-                                            <input type="text" id="website_link" name="website_link" value="{{ old('website_link', $setting->website_link) }}" class="form-control">
-                                        </div>
-                                    </div>    
+                                   
                                     
+                                    <div class="col-md-6 form-group">
+                                        <div class="form-group"><label for="color" class=" form-control-label">Color</label>
+                                            <input type="color" id="color" name="color" value="{{ old('color', $setting->color) }}" class="form-control">
+                                        </div>
+                                    </div>  
+
+                                    <div class="col-md-6 form-group">
+                                        <div class="form-group"><label for="fonts" class=" form-control-label">Fonts</label>
+                                            <input type="text" id="fonts" name="fonts" value="{{ old('fonts', $setting->fonts) }}" class="form-control">
+                                        </div>
+                                    </div> 
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group"><label for="blog_banner_image" class=" form-control-label">Blog Banner Image</label>
+                                            <input type="hidden" name="blog_banner_image_show" value="{{ old('blog_banner_image', $setting->blog_banner_image) }}">
+                                            <input type="file" id="blog_banner_image" name="blog_banner_image" class="form-control-file" value="{{ old('blog_banner_image', $setting->blog_banner_image) }}">
+                                            <img id="image-preview" src="{{ old('blog_banner_image', $setting->blog_banner_image ? asset('storage/app/private/public/BlogBanner/' . $setting->blog_banner_image) : '') }}" 
+                                            alt="Image Preview" 
+                                            style="width: 100px; height: 100px;">
+                                        </div>
+                                    </div>
                                     <button type="submit" class="btn btn-lg btn-info btn-block">Update</button>
                                 </div>
                             {{-- </div> --}}

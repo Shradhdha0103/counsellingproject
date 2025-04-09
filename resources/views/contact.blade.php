@@ -1,6 +1,8 @@
 @extends('layouts.main')
+@section('pagename', $pagename)
 @section('content')
-<section class="hero-wrap hero-wrap-2" style="background-image: url('{{asset('assets/images/bg_5.jpg')}}');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('{{asset('storage/app/private/public/contactBanner')}}/{{$banner->contact_banner_img}}');" data-stellar-background-ratio="0.5">
+    {{-- <section class="hero-wrap hero-wrap-2" style="background-image: url('{{asset('assets/images/bg_5.jpg')}}');" data-stellar-background-ratio="0.5"> --}}
     <div class="overlay"></div>
     <div class="container">
       <div class="row no-gutters slider-text align-items-end justify-content-center">
@@ -67,7 +69,7 @@
                                 @endif
 
                                 @if(!session('success'))
-                                <h3 class="mb-4">Contact Us</h3>
+                                <h3 class="mb-4">{{$banner->contact_title}}</h3>
                                 <form method="POST" action="{{ route('contact') }}" id="contactForm" name="contactForm" class="contactForm">
                                     @csrf
                                     <div class="row">
@@ -83,10 +85,27 @@
                                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="label" for="phone">Phone</label>
                                                 <input type="text" class="form-control" name="phone" id="phone" placeholder="phone">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                    <label class="label" for="Services">Services</label>
+                                                <div class="form-field">
+                                                <div class="select-wrap">
+                                                    
+                                                    <select name="services" id="services" class="form-control">
+                                                        <option value="">Select Service</option> <!-- Default option -->
+                                                        @foreach  ($service_master as $item)
+                                                        <option value="{{$item->title}}">{{$item->title}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    
+                                                </div>
+                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">

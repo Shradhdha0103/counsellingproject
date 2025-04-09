@@ -1,9 +1,15 @@
 @extends('layouts.main')
 @section('content')
+<style>
+  .thankmsg{
+    color: #ffffff;
+  }
+</style>
 <?php $setting = setting();?>
 <!-- END nav -->
 
-<div class="hero-wrap" style="background-image: url('{{asset('assets/images/bg_1.jpg')}}');" data-stellar-background-ratio="0.5">
+<div class="hero-wrap" style="background-image: url('{{asset('storage/app/private/public/banner_img')}}/{{$setting->banner_img}}');">
+  {{-- <div class="hero-wrap" style="background-image: url('{{asset('assets/images/bg_1.jpg')}}');" data-stellar-background-ratio="0.5"> --}}
 <div class="overlay"></div>
 <div class="hero-overly">
 <div class="container">
@@ -258,46 +264,67 @@
     </div>
 </section>
 
-<section class="ftco-appointment ftco-section img" style="background-image: url({{asset('assets/images/bg_2.jpg')}});">
+
+<section class="ftco-appointment ftco-section img" style="background-image: url('{{asset('storage/app/private/public/contact_background_img')}}/{{$setting->contact_background_img}}');">
+  {{-- <section class="ftco-appointment ftco-section img" style="background-image: url('{{asset('storage/app/private/public/contact_background_img')}}/{{$setting->contact_background_img}}');"> --}}
+  {{-- <section class="ftco-appointment ftco-section img" style="background-image: url({{asset('assets/images/bg_2.jpg')}});"> --}}
     <div class="overlay"></div>
 <div class="container">
     <div class="row">
         <div class="col-md-6 half ftco-animate">
-            <h2 class="mb-4">Send a Message &amp; Get in touch!</h2>
-            <form action="#" class="appointment">
+            {{-- <h2 class="mb-4">Send a Message &amp; Get in touch!</h2> --}}
+             <!-- Success message -->
+             @if(session('success'))
+             <div class="">
+                 <h1 class="thankmsg">{{ session('success') }}</h1>
+             </div>
+             @endif
+
+             <!-- Error message -->
+             @if(session('error'))
+             <div class="alert alert-danger">
+                 {{ session('error') }}
+             </div>
+             @endif
+            
+            @if(!session('success'))
+            <h2>We're Here to Help</h2>
+            <form method="POST" action="{{ route('contact') }}" class="appointment">
+              @csrf
                 <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Your Name">
-                </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="Your Name">
+                      </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Email" name="email">
                         </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Phone" name="phone">
+                      </div>
+                    </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Email">
-                </div>
-                        </div>
-                        <div class="col-md-12">
                             <div class="form-group">
                             <div class="form-field">
                           <div class="select-wrap">
                   <div class="icon"><span class="fa fa-chevron-down"></span></div>
-                  <select name="" id="" class="form-control">
-                      <option value="">Services</option>
-                    <option value="">Individual Therapy</option>
-                    <option value="">Couples Counseling</option>
-                    <option value="">Teenagers and Young Adults</option>
-                    <option value="">ADHD Support</option>
-                    <option value="">Trauma-Informed Therapy</option>
-                    <option value="">DBT group</option>
-                    <option value="">Multilingual Clients</option>
-                  </select>
+                  <select name="services" id="services" class="form-control">
+                    <option value="">Select Service</option> <!-- Default option -->
+                    @foreach  ($serviceMaster as $item)
+                    <option value="{{$item->title}}">{{$item->title}}</option>
+                    @endforeach
+                </select>
                 </div>
                   </div>
                         </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                  <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                  <textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
                 </div>
                         </div>
                         <div class="col-md-12">
@@ -307,6 +334,7 @@
                         </div>
                 </div>
       </form>
+      @endif
         </div>
     </div>
 </div>

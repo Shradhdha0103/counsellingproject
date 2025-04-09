@@ -10,8 +10,8 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header d-flex">
-            <a href="{{route('service_list')}}" class="pr-3"><img src="{{asset('assets/images/backArrow.svg')}}"></a>
-            <h4>Update Services</h4>
+            <a href="{{route('seo_details')}}" class="pr-3"><img src="{{asset('assets/images/backArrow.svg')}}"></a>
+            <h4>Update SEO</h4>
         </div>
         <div class="card-body">
             <div class="custom-tab">
@@ -23,52 +23,34 @@
                             {{-- <div class="card-header"><strong>Update Home Page</strong><small> Information</small></div> --}}
                             <div class="card-body card-block">     
                                 
-                                <form action="{{route('edit-service-data')}}" method="POST" enctype="multipart/form-data">
+                                <form action="{{route('edit-seo-data')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" name="id" value="{{$updateService->id}}">
+                                    <input type="hidden" name="id" value="{{$updateSEO->id}}">
                                 <div class="col-md-4">
-                                    <div class="col-md-12 form-group"><label for="title" class=" form-control-label">Title</label>
-                                        <input type="text" id="title" name="title" class="form-control" value="{{ $updateService->title }}">
+                                    <div class="col-md-12 form-group"><label for="page_name" class=" form-control-label">Page Name</label>
+                                        <input type="text" id="page_name" name="page_name" class="form-control" value="{{ $updateSEO->page_name }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="col-md-12 form-group"><label for="sub_title" class=" form-control-label">Sub Title</label>
-                                        <input type="text" id="sub_title" name="sub_title" class="form-control" value="{{ $updateService->sub_title }}">
+                                    <div class="col-md-12 form-group"><label for="title" class=" form-control-label">Meta Title</label>
+                                        <input type="text" id="title" name="title" class="form-control" value="{{ $updateSEO->title }}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="col-md-12 form-group"><label for="slug" class=" form-control-label">Slug</label>
-                                        <input type="text" id="slug" name="slug" class="form-control"  value="{{ $updateService->slug }}">
+                             
+                                <div class="col-md-12">
+                                    <div class="col-md-12 form-group"><label for="description" class="form-control-label">Meta Description</label>
+                                        <textarea id="content" name="description">{{ old('description', $updateSEO->description) }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="col-md-12 form-group"><label for="desc" class="form-control-label">Description</label>
-                                        {{-- <input type="text" id="desc" name="desc" class="form-control"> --}}
-                                        <textarea id="content" name="desc">{{ old('desc', $updateService->desc) }}</textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="col-md-12 form-group"><label for="image" class="form-control-label">Image</label>
-                                        <input type="file" id="image" name="image" class="form-control">
-                                        <img id="image-preview" src="{{ old('image', $updateService->image ? asset('storage/app/private/public/services/' . $updateService->image) : '') }}" 
-                                        alt="Image Preview" 
-                                        style="width: 100px; height: 100px;">
+                                    <div class="col-md-12 form-group"><label for="key_word" class=" form-control-label">Meta keyword</label>
+                                        {{-- <input type="text" id="key_word" name="key_word" class="form-control" value="{{ $updateSEO->key_word }}"> --}}
+                                        <textarea id="content_key_word" name="key_word">{{ old('key_word', $updateSEO->key_word) }}</textarea>
 
                                     </div>
-                                </div> 
-                               
-                                <div class="col-md-6 form-group">
-                                    <div class="col-md-12 form-group">
-                                    <label for="status" class="form-control-label">Status</label>
-                                    <select id="mySelectstatus" class="col-md-12 form-control" name="status" data-placeholder="--Select Status--">
-                                        <option value="1" {{ $updateService->status == 1 ? 'selected' : '' }}>Active</option>
-                                        <option value="0" {{ $updateService->status == 0 ? 'selected' : '' }}>Deactive</option>
-                                    </select>
-                                    </div>
                                 </div>
-                                
+                           
                                 <button type="submit" class="btn btn-lg btn-info btn-block">Update</button>
                                 </form>
                             </div>
@@ -107,6 +89,22 @@
         });
     });
     $(document).ready(function() {
+        // Initialize Summernote
+        $('#content_key_word').summernote({
+            placeholder: 'Enter your content here...', // Placeholder text
+            tabsize: 2, // Number of spaces when tab is pressed
+            height: 200, // Set the editor height
+            toolbar: [
+                // Customize toolbar options (buttons)
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen', 'codeview']]
+            ]
+        });
+    });
+    $(document).ready(function() {
             $('#mySelectstatus').select2();
     })
 </script>
@@ -123,5 +121,6 @@
       // Read the file as a data URL
       reader.readAsDataURL(event.target.files[0]);
     });
+    
   </script>
   

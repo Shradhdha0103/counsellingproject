@@ -27,16 +27,23 @@ class HomeController extends Controller
     // serviceMaster
     public function home()
     {
+        $pagename = 'Home page';
         $setting = setting::orderBy('id', 'desc')->first();
         $serviceMaster = serviceMaster::orderBy('id', 'asc')->get();
-        return view('home', compact('setting', 'serviceMaster'));
+        // dd("DDLDLDLDD", $pagename);
+        return view('home', compact('setting', 'serviceMaster', 'pagename'));
     }
 
     // CMS
     function displaymenu(Request $request, $slug)
     {
-        $slug = menus($slug);
-        return view('cms', compact('slug'));
+        // dd("DKDKDKD", $slug);
+        $cmsdata =  cms::where('slug', $slug)->first();
+        // dd($data);
+        // $slug = menus($slug);
+        // dd($slug);
+        $pagename = $slug;
+        return view('cms', compact('cmsdata', 'slug', 'pagename'));
     }
 
     // CMS Setting
@@ -54,8 +61,9 @@ class HomeController extends Controller
         try {
             $request->validate([
                 'title' => 'required',
-                'slug' => 'required',
-                'desc' => 'required'
+                'slug' => 'required|unique:cms,slug',
+                'desc' => 'required',
+                'banner_image' => 'required'
             ]);
 
             $cms = new cms();
@@ -63,8 +71,30 @@ class HomeController extends Controller
             $cms->title = $request->title;
             $cms->slug = $request->slug;;
             $cms->desc =  $request->input('desc');
+            $cms->banner_image = $request->banner_image;
             $cms->status = $request->status;
+            // Handle banner_image upload if provided
+            if ($request->hasFile('banner_image')) {
+                $file = $request->file('banner_image');
+                $filename_banner_image = time() . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('public/CMS_image', $filename_banner_image); // Save to storage/app/public/banner_image
+
+                $cms->banner_image = $filename_banner_image;  // Update the banner_image field in the database
+            } else {
+                $cms->banner_image = $request->banner_image_show;
+            }
             $cms->save();
+
+            $seo = new seo_tbl();
+
+            // Set the properties for the SEO record
+            $seo->id = $cms->id;
+            $seo->page_name = $cms->title; // Set the cms_id to link this SEO record with the CMS
+            $seo->title = $request->slug;  // You can use the CMS title for meta_title
+            $seo->description = $request->input('desc');;  // You can use the CMS 
+
+            // Save the SEO record to the database
+            $seo->save();
 
             return redirect()->route('cms')->with('msg', 'CMS Added successfully!');
         } catch (\Throwable $th) {
@@ -89,22 +119,40 @@ class HomeController extends Controller
     {
         try {
             $id = $request->id;
-            $cms = cms::find($id);
+            $cms = cms::findOrFail($id);
 
+            // Handle banner_image upload if provided
+            if ($request->hasFile('banner_image')) {
+
+                $file = $request->file('banner_image');
+                $filename_banner_image = time() . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('public/CMS_image', $filename_banner_image); // Save to storage/app/public/CMS_image
+
+                $cms->banner_image = $filename_banner_image;  // Update the banner_image field in the database
+            } else {
+                // If no new image is uploaded, keep the existing one
+                $cms->banner_image = $request->banner_image_show;
+            }
+            // dd($cms->banner_image);
+
+            // Update the rest of the CMS data
             $cmsEditRec = [
                 'title' => $request->title,
                 'slug' => $request->slug,
                 'desc' => $request->desc,
-                'status' => $request->status
+                'banner_image' => $request->banner_image,
+                'status' => $request->status,
             ];
-
-            cms::where('id', $id)->update($cmsEditRec);
-            return redirect()->route('admin.cms.index')->with('msg', 'Service updated successfully!');
+            // Update the database record
+            $cms->save();
+            return redirect()->route('cms')->with('msg', 'CMS  updated successfully!');
         } catch (\Throwable $th) {
+            dd($th);
             // Handle the exception appropriately
             return back()->withErrors(['error' => $th->getMessage()]);
         }
     }
+
     public function deleteCMS(Request $request)
     {
         // Decrypt the ID
@@ -136,8 +184,9 @@ class HomeController extends Controller
     // Setting
     function setting()
     {
+        $pagename = "Setting Page";
         $setting = setting::orderBy('id', 'desc')->first();
-        return view('admin.home.setting', compact('setting'));
+        return view('admin.home.setting', compact('setting', 'pagename'));
     }
 
     public function updateSettings(Request $request, $id)
@@ -165,26 +214,81 @@ class HomeController extends Controller
         $settings->therapy_title = $request->therapy_title;
         $settings->therapy_heading = $request->therapy_heading;
         $settings->therapy_content = $request->therapy_content;
+        $settings->contact_title = $request->contact_title;
+        $settings->contact_banner_img = $request->contact_banner_img;
         $settings->phone = $request->phone;
         $settings->email = $request->email;
         $settings->footer_content = $request->footer_content;
         $settings->logo = $request->logo;
+        $settings->contact_background_img = $request->contact_background_img;
+        $settings->blog_banner_image = $request->blog_banner_image;
+        $settings->color = $request->color;
+        $settings->fonts = $request->fonts;
         $settings->insta_link = $request->insta_link;
         $settings->linkedin_link = $request->linkedin_link;
         $settings->website_link = $request->website_link;
         $settings->contact_link = $request->contact_link;
 
-        // Handle file uploads if provided
-        if ($request->hasFile('banner_image')) {
-            // Store the banner image and update the path in the database
-            $settings->banner_img = $request->file('banner_image')->store('images');
+        // Handle banner_img upload if provided
+        if ($request->hasFile('banner_img')) {
+            $file = $request->file('banner_img');
+            $filename_banner_img = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/banner_img', $filename_banner_img); // Save to storage/app/public/banner_img
+
+            $settings->banner_img = $filename_banner_img;  // Update the banner_img field in the database
+        } else {
+            $settings->banner_img = $request->banner_img_show;
         }
 
+        if ($request->hasFile('contact_banner_img')) {
+            $file = $request->file('contact_banner_img');
+            $filename_contact_banner_img = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/contactBanner', $filename_contact_banner_img); // Save to storage/app/public/contact_banner_img
+
+            $settings->contact_banner_img = $filename_contact_banner_img;  // Update the banner_img field in the database
+        } else {
+            $settings->contact_banner_img = $request->contact_banner_img_show;
+        }
+        if ($request->hasFile('blog_banner_image')) {
+            $file = $request->file('blog_banner_image');
+            $filename_blog_banner_image = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/BlogBanner', $filename_blog_banner_image); // Save to storage/app/public/blog_banner_image
+
+            $settings->blog_banner_image = $filename_blog_banner_image;  // Update the banner_img field in the database
+        } else {
+            $settings->blog_banner_image = $request->blog_banner_image_show;
+        }
+
+
+        // Handle logo upload if provided
         if ($request->hasFile('logo')) {
-            // Store the logo image and update the path in the database
-            $settings->logo = $request->file('logo')->store('images');
+            $file = $request->file('logo');
+            $filename_logo = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/logo', $filename_logo);
+            $settings->logo = $filename_logo;  // Update the logo field in the database
+        } else {
+            $settings->logo = $request->logo_show;
+        }
+        // Handle logo upload if provided
+        if ($request->hasFile('footer_logo')) {
+            $file = $request->file('footer_logo');
+            $filename_footer_logo = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/footer_logo', $filename_footer_logo);
+            $settings->footer_logo = $filename_footer_logo;  // Update the footer_logo field in the database
+        } else {
+            $settings->footer_logo = $request->footer_logo_show;
         }
 
+        // Handle contact_background_img upload if provided
+        if ($request->hasFile('contact_background_img')) {
+            $file = $request->file('contact_background_img');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/contact_background_img', $filename); // Save to storage/app/public/contact_background_img
+
+            $settings->contact_background_img = $filename;  // Update the contact_background_img field in the database
+        } else {
+            $settings->contact_background_img = $request->contact_background_img_show;
+        }
         // Save the updated settings
         $settings->save();
 
@@ -280,7 +384,7 @@ class HomeController extends Controller
             ];
 
             serviceMaster::where('id', $id)->update($serviceEditRec);
-            return redirect()->route('admin.service_master.servicelist.blade')->with('msg', 'Service updated successfully!');
+            return redirect()->route('service_list')->with('msg', 'Service updated successfully!');
         } catch (\Throwable $th) {
             // Handle the exception appropriately
             return back()->withErrors(['error' => $th->getMessage()]);
@@ -293,26 +397,20 @@ class HomeController extends Controller
         // Decrypt the ID
         $serviceId = decrypt($request->id);
 
-        // Find the blog and delete it
         $services = serviceMaster::find($serviceId);
         if ($services) {
             $services->delete();
             return response()->json(['success' => true]);
         }
 
-        return response()->json(['success' => false], 404); // Blog not found
+        return response()->json(['success' => false], 404);
     }
 
     function services($slug)
     {
+        $pagename = 'Services';
         $serviceDetail = serviceMaster::where('slug', $slug)->first();
-        // dd($serviceDetail);
-
-        // $data['title'] = isset($serviceDetail['SEO_title']) && !empty($serviceDetail['SEO_title']) ? $serviceDetail['SEO_title'] : 'Worldclass application development agency | Unikwork Systems';
-        // $data['description'] = isset($serviceDetail['meta_desc']) && !empty($serviceDetail['meta_desc']) ? $serviceDetail['meta_desc'] : 'Smart Software Development Solutions that Revolutionize the Way you Do Business';
-        // // $data['page_name'] = isset($pagename['page_name']) && !empty($pagename['page_name']) ? $pagename['page_name'] : 'Blog page';
-        // $data['key_word'] = isset($serviceDetail['meta_keyword']) && !empty($serviceDetail['meta_keyword']) ? $serviceDetail['meta_keyword'] : 'software development, software development solutions, technology service, software testing, software products';
-        return view('services.service', compact('serviceDetail'));
+        return view('services.service', compact('serviceDetail', 'pagename'));
     }
 
 
@@ -320,8 +418,8 @@ class HomeController extends Controller
     function displayblogs()
     {
         $blog = DB::table('blogs')->where('status', 1)->get();
-
-        $pagename = seoPage('Blog page');
+        $banner = setting::orderBy('id', 'desc')->first();
+        $pagename = "Setting Page";
 
         // $data['page_name'] = isset($pagename['page_name']) && !empty($pagename['page_name']) ? $pagename['page_name'] : 'Sitemap page';
         // $data['title'] = isset($pagename['title']) && !empty($pagename['title']) ? $pagename['title'] : 'Sitemap | Unikwork Systems';
@@ -330,7 +428,7 @@ class HomeController extends Controller
         // $data['key_word'] = isset($pagename['key_word']) && !empty($pagename['key_word']) ? $pagename['key_word'] : 'software development, software development solutions, technology service, software testing, software products';
 
         // dd($blog);
-        return view('blog', compact('blog'));
+        return view('blog', compact('blog', 'pagename', 'banner'));
     }
     function blogs(Request $request)
     {
@@ -425,7 +523,7 @@ class HomeController extends Controller
             ];
 
             blogs::where('id', $id)->update($blogEditRec);
-            return redirect()->route('admin.blogs.index')->with('msg', 'Blog updated successfully!');
+            return redirect()->route('bloglist')->with('msg', 'Blog updated successfully!');
         } catch (\Throwable $th) {
             // Handle the exception appropriately
             return back()->withErrors(['error' => $th->getMessage()]);
@@ -451,6 +549,7 @@ class HomeController extends Controller
     function blogDetails($slug)
     {
         // dd($slug);
+        $pagename = 'Blog Details';
         // $blogDetail = DB::table('blog')->where('slug', $slug)->first();
         $blogDetail = blogs::with('users')->where('slug', $slug)->first();
         // dd($blogDetail);
@@ -460,7 +559,7 @@ class HomeController extends Controller
         // // $data['page_name'] = isset($pagename['page_name']) && !empty($pagename['page_name']) ? $pagename['page_name'] : 'Blog page';
         // $data['key_word'] = isset($blogDetail['meta_keyword']) && !empty($blogDetail['meta_keyword']) ? $blogDetail['meta_keyword'] : 'software development, software development solutions, technology service, software testing, software products';
         // dd($data);
-        return view('blogDetails', compact('blogDetail'));
+        return view('blogDetails', compact('blogDetail', 'pagename'));
     }
 
 
@@ -474,5 +573,91 @@ class HomeController extends Controller
         } catch (Exception $e) {
             abort(500);
         }
+    }
+    public function storeseo()
+    {
+        return view('admin.seo.addseo');
+    }
+    public function addSEO(Request $request)
+    {
+        try {
+            // Validate the incoming request
+            $request->validate([
+                'page_name' => 'required',
+                'title' => 'required',
+                'description' => 'required',
+                'key_word' => 'required'
+            ]);
+
+            // Create a new SEO record
+            $seoDetails = new seo_tbl();
+
+            // Set the properties based on the incoming request
+            $seoDetails->page_name = $request->page_name;
+            $seoDetails->title = $request->title;
+            $seoDetails->description = $request->description;
+            $seoDetails->key_word = $request->key_word;
+
+            // Save the record in the database
+            $seoDetails->save();
+
+            // Redirect to the SEO index route with a success message
+            return redirect()->route('seo_details')->with('msg', 'SEO Added successfully!');
+        } catch (\Throwable $th) {
+            // Catch any exceptions and handle errors
+            dd($th);
+        }
+    }
+    public function editSEO($id)
+    {
+        try {
+            $pagename = 'Update SEO';
+            $id = decrypt($id);
+            $updateSEO = seo_tbl::find($id);
+            return view('admin.seo.editSEO', compact('updateSEO', 'pagename'));
+        } catch (\Throwable $th) {
+            dd($th);
+            //throw $th;
+        }
+    }
+    public function editSEOData(Request $request)
+    {
+        try {
+            $id = $request->id;
+            $seo = seo_tbl::find($id);
+
+            $seoEditRec = [
+                // 'id' => $request->id,
+                'page_name' => $request->page_name,
+                'title' => $request->title,
+                'description' => $request->description,
+                'key_word' => $request->key_word
+            ];
+
+            seo_tbl::where('id', $id)->update($seoEditRec);
+            return redirect()->route('seo_details')->with('msg', 'SEO updated successfully!');
+        } catch (\Throwable $th) {
+            // Handle the exception appropriately
+            return back()->withErrors(['error' => $th->getMessage()]);
+        }
+    }
+    public function deleteSEO(Request $request)
+    {
+        $seoId = decrypt($request->id);
+
+        // Find the blog and delete it
+        $seo = seo_tbl::find($seoId);
+        if ($seo) {
+            $seo->delete();
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false], 404); // seo not found
+    }
+
+    public function privacy()
+    {
+        $pagename = 'Privacy';
+        return view('privacy', compact('pagename'));
     }
 }

@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <strong>SEO Details</strong>
-                        <strong><a class="text-end text-green" href="{{ route('add-seo') }}">Add SEO Page Detail</a></strong>
+                        <strong><a class="text-end text-green btn btn-primary" href="{{ route('add-seo') }}">Add SEO Page Detail</a></strong>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
@@ -42,11 +42,6 @@
                                         <div class="ml-2"><a  href="{{route('edit-seo',['id'=>encrypt($data->id)])}}" class="btn btn-primary edit-seo p3">
                                             Edit 
                                         </a></div>
-                    
-                                        {{-- <div class="ml-2"><a href="{{route('delete-blog',['id'=>encrypt($blog->id)])}}" class="btn btn-primary delete-blog p3">
-                                            Delete 
-                                            //<i class="mdi mdi-delete d-block" class="text-center"></i>
-                                         </a></div> --}}
                                          <div class="ml-2"><a data-id="{{ encrypt($data->id) }}" type="button" class="btn btn-primary delete-seo p3" id="deleteseo">
                                             Delete{{-- <img src="{{ asset('/images/delete.png') }}" alt="icon"> --}}
                                         </a></div>
@@ -70,15 +65,15 @@
 <script>
     $(document).ready(function() {
         // Attach click event to the delete button
-        $(document).on('click', '#deleteBlog', function(e) {
+        $(document).on('click', '#deleteseo', function(e) {
             e.preventDefault(); // Prevent the default link behavior
 
-            var blogId = $(this).data('id'); // Get the data-id (the encrypted blog ID)
+            var seoId = $(this).data('id'); 
 
             // Show SweetAlert confirmation
             Swal.fire({
                 title: 'Are you sure?',
-                text: "Do you want to delete this Blog?",
+                text: "Do you want to delete this details?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#5cb65c',
@@ -87,30 +82,27 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // User confirmed deletion, make AJAX request to delete the blog
+                  
                     $.ajax({
-                        url: '{{ route('delete-blog', ':id') }}', // Your route to delete the blog
+                        url: '{{ route('delete-seo', ':id') }}', 
                         type: 'DELETE',
                         data: {
-                            id: blogId,
+                            id: seoId,
                             _token: '{{ csrf_token() }}' // Include CSRF token for Laravel
                         },
                         success: function(response) {
                             // Success response, show success message
                             Swal.fire(
                                 'Deleted!',
-                                'Your blog has been deleted.',
+                                'Your details has been deleted.',
                                 'success'
                             );
-                            
-                            // Optionally, you can remove the blog from the DOM
-                            // $(this).closest('.blog-row').remove(); // Adjust according to your structure
                         },
                         error: function(xhr, status, error) {
                             // Error handling, show an error message
                             Swal.fire(
                                 'Error!',
-                                'There was an issue deleting the blog.',
+                                'There was an issue deleting the details.',
                                 'error'
                             );
                         }

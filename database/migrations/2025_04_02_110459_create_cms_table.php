@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('title')->nullable();
             $table->text('slug')->nullable();
             $table->text('desc')->nullable();
+            $table->text('banner_image')->nullable();
             $table->unsignedInteger('status')->nullable();
             $table->timestamps();
         });

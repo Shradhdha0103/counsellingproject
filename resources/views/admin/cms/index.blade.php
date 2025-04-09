@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <strong>CMS List</strong>
-                        <strong><a class="text-end text-green" href="{{ route('storecms') }}">Add CMS</a></strong>
+                        <strong><a class="text-end text-green btn btn-primary" href="{{ route('storecms') }}">Add CMS</a></strong>
                     </div>
                     
                     <div class="card-body">
