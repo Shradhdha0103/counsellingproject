@@ -28,29 +28,29 @@
                                     
                                 <div class="col-md-4">
                                     <div class="col-md-12 form-group"><label for="title" class=" form-control-label">Title</label>
-                                        <input type="text" id="title" name="title" class="form-control">
+                                        <input type="text" id="title" name="title" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12 form-group"><label for="sub_title" class=" form-control-label">Sub Title</label>
-                                        <input type="text" id="sub_title" name="sub_title" class="form-control">
+                                        <input type="text" id="sub_title" name="sub_title" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12 form-group"><label for="slug" class=" form-control-label">Slug</label>
-                                        <input type="text" id="slug" name="slug" class="form-control">
+                                        <input type="text" id="slug" name="slug" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="col-md-12 form-group"><label for="desc" class="form-control-label">Description</label>
                                         {{-- <input type="text" id="desc" name="desc" class="form-control"> --}}
-                                        <textarea id="content" name="desc"></textarea>
+                                        <textarea id="content" name="desc" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="select" class=" form-control-label">Select</label>    
-                                        <select id="mySelectuser" class="form-control" name="auth_id" data-placeholder="Select User">
+                                        <select id="mySelectuser" class="form-control" name="auth_id" data-placeholder="Select User" required>
                                             <option value="" selected>Select User</option>
                                             @forelse ($auth_id as $item)                                                    
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -63,30 +63,30 @@
                                
                                 <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="feature_img" class="form-control-label">Feature Image</label>
-                                        <input type="file" id="feature_img" name="feature_img" class="form-control">
+                                        <input type="file" id="feature_img" name="feature_img" class="form-control" required>
                                     </div>
                                 </div> 
 
                                 <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="SEO_title" class=" form-control-label">SEO Title</label>
-                                        <input type="text" id="SEO_title" name="SEO_title" class="form-control">
+                                        <input type="text" id="SEO_title" name="SEO_title" class="form-control" required>
                                     </div>
                                 </div> 
                               
                                 <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="meta_desc" class=" form-control-label">Meta Desc</label>
-                                        <input type="text" id="meta_desc" name="meta_desc" class="form-control">
+                                        <input type="text" id="meta_desc" name="meta_desc" class="form-control" required>
                                     </div>
                                 </div> 
 
                                 <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="meta_keyword" class=" form-control-label">Meta Keyword</label>
-                                        <input type="text" id="meta_keyword" name="meta_keyword" class="form-control">
+                                        <input type="text" id="meta_keyword" name="meta_keyword" class="form-control" required>
                                     </div>
                                 </div> 
                                 <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="blog_faq" class=" form-control-label">Blog Faq</label>
-                                        <input type="text" id="blog_faq" name="blog_faq" class="form-control">
+                                        <input type="text" id="blog_faq" name="blog_faq" class="form-control" required>
                                     </div>
                                 </div> 
                                 {{-- <div class="col-md-6">
@@ -97,7 +97,7 @@
                                 <div class="col-md-6 form-group">
                                     <div class="col-md-12 form-group">
                                     <label for="status" class="form-control-label">Status</label>
-                                    <select id="mySelectstatus" class="col-md-12 form-control" name="status" data-placeholder="--Select Status--">
+                                    <select id="mySelectstatus" class="col-md-12 form-control" name="status" data-placeholder="--Select Status--" required>
                                         <option value="1">Active</option>
                                         <option value="0">Deactive</option>
                                     </select>

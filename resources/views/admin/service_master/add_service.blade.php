@@ -28,30 +28,30 @@
                                     
                                 <div class="col-md-4">
                                     <div class="col-md-12 form-group"><label for="title" class=" form-control-label">Title</label>
-                                        <input type="text" id="title" name="title" class="form-control">
+                                        <input type="text" id="title" name="title" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12 form-group"><label for="sub_title" class=" form-control-label">Sub Title</label>
-                                        <input type="text" id="sub_title" name="sub_title" class="form-control">
+                                        <input type="text" id="sub_title" name="sub_title" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12 form-group"><label for="slug" class=" form-control-label">Slug</label>
-                                        <input type="text" id="slug" name="slug" class="form-control">
+                                        <input type="text" id="slug" name="slug" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="col-md-12 form-group"><label for="desc" class="form-control-label">Description</label>
                                         {{-- <input type="text" id="desc" name="desc" class="form-control"> --}}
-                                        <textarea id="content" name="desc"></textarea>
+                                        <textarea id="content" name="desc" required></textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="image" class="form-control-label">Image</label>
-                                        <input type="file" id="image" name="image" class="form-control">
+                                        <input type="file" id="image" name="image" class="form-control" required>
                                     </div>
                                 </div> 
 
@@ -59,7 +59,7 @@
                                 <div class="col-md-6 form-group">
                                     <div class="col-md-12 form-group">
                                     <label for="status" class="form-control-label">Status</label>
-                                    <select id="mySelectstatus" class="col-md-12 form-control" name="status" data-placeholder="--Select Status--">
+                                    <select id="mySelectstatus" class="col-md-12 form-control" name="status" data-placeholder="--Select Status--" required>
                                         <option value="1">Active</option>
                                         <option value="0">Deactive</option>
                                     </select>

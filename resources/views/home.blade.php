@@ -133,7 +133,7 @@
       <h2>{{$setting['therapy_title']}}</h2>
     </div>
   </div>
-      <div class="row">
+      <div class="col-md-12">
         <p>{{$setting['therapy_content']}}</p>
 
         {{-- <p>Whether you seek clarity, healing, or growth, we’re here to guide you every step. Explore our policies to learn more about consent, confidentiality, and electronic communication. Your well-being is our top priority—let’s embark on this transformative journey together.</p> --}}
@@ -294,17 +294,17 @@
                 <div class="row">
                       <div class="col-md-6">
                           <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Your Name">
+                        <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                       </div>
                       </div>
                       <div class="col-md-6">
                           <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Email" name="email">
+                          <input type="text" class="form-control" placeholder="Email" name="email" required>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Phone" name="phone">
+                        <input type="text" class="form-control" placeholder="Phone" name="phone" required>
                       </div>
                     </div>
                         <div class="col-md-6">
@@ -312,7 +312,7 @@
                             <div class="form-field">
                           <div class="select-wrap">
                   <div class="icon"><span class="fa fa-chevron-down"></span></div>
-                  <select name="services" id="services" class="form-control">
+                  <select name="services" id="services" class="form-control" required>
                     <option value="">Select Service</option> <!-- Default option -->
                     @foreach  ($serviceMaster as $item)
                     <option value="{{$item->title}}">{{$item->title}}</option>
@@ -324,7 +324,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                  <textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                  <textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Message" required></textarea>
                 </div>
                         </div>
                         <div class="col-md-12">

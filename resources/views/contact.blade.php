@@ -76,19 +76,19 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="label" for="name">Full Name</label>
-                                                <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="label" for="email">Email Address</label>
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="label" for="phone">Phone</label>
-                                                <input type="text" class="form-control" name="phone" id="phone" placeholder="phone">
+                                                <input type="text" class="form-control" name="phone" id="phone" placeholder="phone" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -97,7 +97,7 @@
                                                 <div class="form-field">
                                                 <div class="select-wrap">
                                                     
-                                                    <select name="services" id="services" class="form-control">
+                                                    <select name="services" id="services" class="form-control" required>
                                                         <option value="">Select Service</option> <!-- Default option -->
                                                         @foreach  ($service_master as $item)
                                                         <option value="{{$item->title}}">{{$item->title}}</option>
@@ -111,7 +111,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="label" for="#">Message</label>
-                                                <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Message"></textarea>
+                                                <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Message" required></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12">

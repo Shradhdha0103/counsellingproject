@@ -98,7 +98,7 @@ class HomeController extends Controller
 
             return redirect()->route('cms')->with('msg', 'CMS Added successfully!');
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             //throw $th;
         }
     }
@@ -110,7 +110,7 @@ class HomeController extends Controller
             $updateCMS = cms::find($id);
             return view('admin.cms.edit-cms', compact('updateCMS', 'pagename'));
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             //throw $th;
         }
     }
@@ -147,7 +147,7 @@ class HomeController extends Controller
             $cms->save();
             return redirect()->route('cms')->with('msg', 'CMS  updated successfully!');
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             // Handle the exception appropriately
             return back()->withErrors(['error' => $th->getMessage()]);
         }
@@ -340,7 +340,7 @@ class HomeController extends Controller
 
             return redirect()->route('service_list')->with('msg', 'Blog Added successfully!');
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             //throw $th;
         }
     }
@@ -354,7 +354,7 @@ class HomeController extends Controller
             // $auth_id = User::all();
             return view('admin.service_master.edit-service', compact('updateService', 'pagename'));
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             //throw $th;
         }
     }
@@ -489,7 +489,7 @@ class HomeController extends Controller
             $auth_id = User::all();
             return view('admin.blogs.edit-blog', compact('updateBlog', 'auth_id', 'pagename'));
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             //throw $th;
         }
     }
@@ -605,7 +605,7 @@ class HomeController extends Controller
             return redirect()->route('seo_details')->with('msg', 'SEO Added successfully!');
         } catch (\Throwable $th) {
             // Catch any exceptions and handle errors
-            dd($th);
+            // dd($th);
         }
     }
     public function editSEO($id)
@@ -616,7 +616,7 @@ class HomeController extends Controller
             $updateSEO = seo_tbl::find($id);
             return view('admin.seo.editSEO', compact('updateSEO', 'pagename'));
         } catch (\Throwable $th) {
-            dd($th);
+            // dd($th);
             //throw $th;
         }
     }

@@ -62,7 +62,7 @@ class ContactController extends Controller
             return redirect()->back()->with('success', 'Thank you!');
         } catch (\Throwable $th) {
             // Handle any exceptions or errors
-            dd($th);
+            // dd($th);
             return redirect()->back()->with('error', 'An error occurred while adding the contact!');
         }
     }

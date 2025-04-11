@@ -28,24 +28,24 @@
                                     
                                 <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="page_name" class=" form-control-label">Page Name</label>
-                                        <input type="text" id="page_name" name="page_name" class="form-control">
+                                        <input type="text" id="page_name" name="page_name" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="col-md-12 form-group"><label for="title" class=" form-control-label">Meta Title</label>
-                                        <input type="text" id="title" name="title" class="form-control">
+                                        <input type="text" id="title" name="title" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-md-12 form-group"><label for="description" class="form-control-label">Meta Description</label>
-                                        <textarea id="content" name="description"></textarea>
+                                        <textarea id="content" name="description" required></textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="col-md-12 form-group"><label for="key_word" class=" form-control-label">Meta Keyword</label>
                                         {{-- <input type="text" id="key_word" name="key_word" class="form-control"> --}}
-                                        <textarea id="content_key_word" name="key_word"></textarea>
+                                        <textarea id="content_key_word" name="key_word" required></textarea>
                                     </div>
                                 </div> 
                                 
