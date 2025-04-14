@@ -218,4 +218,35 @@
       </div>
     </div>
   </section> --}}
+  <div class="row mb-5">
+    <div class="col text-center">
+      <div class="block-27">
+        <ul>
+          {{-- Previous Page Link --}}
+          @if ($blog->onFirstPage())
+            <li class="disabled"><span>&lt;</span></li>
+          @else
+            <li><a href="{{ $blog->previousPageUrl() }}">&lt;</a></li>
+          @endif
+  
+          {{-- Page Number Links --}}
+          @foreach ($blog->getUrlRange(1, $blog->lastPage()) as $page => $url)
+            @if ($page == $blog->currentPage())
+              <li class="active"><span>{{ $page }}</span></li>
+            @else
+              <li><a href="{{ $url }}">{{ $page }}</a></li>
+            @endif
+          @endforeach
+  
+          {{-- Next Page Link --}}
+          @if ($blog->hasMorePages())
+            <li><a href="{{ $blog->nextPageUrl() }}">&gt;</a></li>
+          @else
+            <li class="disabled"><span>&gt;</span></li>
+          @endif
+        </ul>
+      </div>
+    </div>
+  </div>
+  
 @stop

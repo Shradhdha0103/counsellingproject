@@ -414,7 +414,7 @@ class HomeController extends Controller
     // Blogs
     function displayblogs()
     {
-        $blog = DB::table('blogs')->where('status', 1)->get();
+        $blog = DB::table('blogs')->where('status', 1)->paginate(9);
         $banner = setting::orderBy('id', 'desc')->first();
         $pagename = "Setting Page";
 
