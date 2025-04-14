@@ -54,19 +54,21 @@
                     <div class="row no-gutters">
                         <div class="col-md-12">
                             <div class="contact-wrap w-100 p-md-5 p-4">
-                                <!-- Success message -->
-                                @if(session('success'))
-                                <div class="">
-                                    <h1 class="thankmsg">{{ session('success') }}</h1>
-                                </div>
-                                @endif
-
-                                <!-- Error message -->
-                                @if(session('error'))
+                                  <!-- Success message -->
+                                  @if(session('success'))
+                                  <div class="">
+                                      <h1 class="thankmsg">{{ session('success') }}</h1>
+                                  </div>
+                                  @endif
+                                  
+                                @if ($errors->any())
                                 <div class="alert alert-danger">
-                                    {{ session('error') }}
+                                        @foreach ($errors->all() as $error)
+                                            <span>{{ $error }}</span>
+                                        @endforeach
                                 </div>
-                                @endif
+                            @endif
+                            
 
                                 @if(!session('success'))
                                 <h3 class="mb-4">{{$banner->contact_title}}</h3>
@@ -82,13 +84,13 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="label" for="email">Email Address</label>
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ old('email') }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="label" for="phone">Phone</label>
-                                                <input type="text" class="form-control" name="phone" id="phone" placeholder="phone" required>
+                                                <input type="text" class="form-control" name="phone" id="phone" placeholder="phone" value="{{ old('phone') }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">

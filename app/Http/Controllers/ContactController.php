@@ -36,16 +36,19 @@ class ContactController extends Controller
     }
     public function store(Request $request)
     {
-        try {
-            // Validate the incoming data
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:contacts,email',
-                'phone' => 'required|string|max:15',
-                'message' => 'required|string',
-            ]);
+        // Validate the incoming data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:contacts,email',
+            'phone' => 'required|string|max:15',
+            'message' => 'required|string',
+        ], [
+            // Custom error message for duplicate email
+            'email.unique' => 'The email address has already been taken. Please use a different email.'
+        ]);
 
-            // Create a new contact in the database
+        // If validation passes, create a new contact in the database
+        try {
             $contact = contacts::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -58,11 +61,13 @@ class ContactController extends Controller
             // Send an email using Mailgun
             Mail::to('gofornirvana@gmail.com')->send(new ContactMail($contact));
 
-            // Return a response (success message, redirect, etc.)
+            // Save contact to the database
+            $contact->save();
+
+            // Return success message
             return redirect()->back()->with('success', 'Thank you!');
         } catch (\Throwable $th) {
-            // Handle any exceptions or errors
-            // dd($th);
+            // Handle any unexpected errors
             return redirect()->back()->with('error', 'An error occurred while adding the contact!');
         }
     }

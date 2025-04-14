@@ -24,12 +24,12 @@ function seoPage($pagename)
 }
 function services()
 {
-    $pagename = serviceMaster::all();
+    $pagename = serviceMaster::where('status', 1)->get();
     return $pagename;
 }
 function blogs()
 {
-    $blogs = blogs::all();
+    $blogs = blogs::where('status', 1)->get();
     return $blogs;
 }
 function menuItems()
@@ -42,13 +42,13 @@ function menuItems()
     //     dd($th);
     //     //throw $th;
     // }
-    $menuItems = cms::all();
+    $menuItems = cms::where('status', 1)->get();
     // dd($menuItems);
     return $menuItems;
 }
 function menus($slug)
 {
-    $menuItems = cms::where('slug', $slug)->first();
+    $menuItems = cms::where('slug', $slug)->where('status', 1)->first();
     // dd($menuItems);
     return $menuItems;
 }

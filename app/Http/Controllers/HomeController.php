@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         $pagename = 'Home page';
         $setting = setting::orderBy('id', 'desc')->first();
-        $serviceMaster = serviceMaster::orderBy('id', 'asc')->get();
+        $serviceMaster = serviceMaster::where('status', 1)->orderBy('id', 'asc')->get();
         // dd("DDLDLDLDD", $pagename);
         return view('home', compact('setting', 'serviceMaster', 'pagename'));
     }
@@ -123,7 +123,6 @@ class HomeController extends Controller
 
             // Handle banner_image upload if provided
             if ($request->hasFile('banner_image')) {
-
                 $file = $request->file('banner_image');
                 $filename_banner_image = time() . '.' . $file->getClientOriginalExtension();
                 $file->storeAs('public/CMS_image', $filename_banner_image); // Save to storage/app/public/CMS_image
@@ -133,25 +132,23 @@ class HomeController extends Controller
                 // If no new image is uploaded, keep the existing one
                 $cms->banner_image = $request->banner_image_show;
             }
-            // dd($cms->banner_image);
 
-            // Update the rest of the CMS data
-            $cmsEditRec = [
-                'title' => $request->title,
-                'slug' => $request->slug,
-                'desc' => $request->desc,
-                'banner_image' => $request->banner_image,
-                'status' => $request->status,
-            ];
-            // Update the database record
+            // Update other CMS fields directly
+            $cms->title = $request->title;
+            $cms->slug = $request->slug;
+            $cms->desc = $request->desc;
+            $cms->status = $request->status;
+
+            // Save updated CMS record
             $cms->save();
-            return redirect()->route('cms')->with('msg', 'CMS  updated successfully!');
+
+            return redirect()->route('cms')->with('msg', 'CMS updated successfully!');
         } catch (\Throwable $th) {
             // dd($th);
-            // Handle the exception appropriately
             return back()->withErrors(['error' => $th->getMessage()]);
         }
     }
+
 
     public function deleteCMS(Request $request)
     {
